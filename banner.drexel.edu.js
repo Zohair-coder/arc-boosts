@@ -19,6 +19,9 @@ window.onload = () => {
 };
 
 function addTimeSelector() {
+  const div = document.createElement("div");
+  div.style = "margin-top: 15px";
+
   const label = createLabel();
   const input = createInput();
   const errorMsg = createErrorMsg();
@@ -26,14 +29,16 @@ function addTimeSelector() {
   let br2 = document.createElement("br");
   let br3 = document.createElement("br");
 
+  div.appendChild(label);
+  div.appendChild(br1);
+  div.appendChild(input);
+  div.appendChild(br2);
+  div.appendChild(errorMsg);
+  div.appendChild(br3);
+
   const container = document.getElementById("term-buttons");
 
-  container.appendChild(label);
-  container.appendChild(br1);
-  container.appendChild(input);
-  container.appendChild(br2);
-  container.appendChild(errorMsg);
-  container.appendChild(br3);
+  container.appendChild(div);
 
   document.getElementById("time").addEventListener("blur", function (e) {
     let time = e.target.value;
@@ -70,6 +75,7 @@ function createInput() {
 function createLabel() {
   let label = document.createElement("label");
   label.setAttribute("for", "time");
+  label.style = "display: inline-block; margin-bottom: 5px";
   label.textContent = "Select auto click time (HH:MM 24h format):";
   return label;
 }
