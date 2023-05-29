@@ -123,13 +123,18 @@ function addRegisterNthPlanButton(n) {
   const titleDiv = document.getElementById("title-panel");
   titleDiv.append(button);
 
-  button.addEventListener("click", (e) => {
+  button.addEventListener("click", async (e) => {
     e.preventDefault();
 
     clickPlansButton();
     clickAddAllButton(n - 1);
+    await sleep(500); // to give time to add the courses as pending
     clickSubmitButton();
   });
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function addRegisterFirstPlanButton() {
@@ -145,23 +150,38 @@ function addRegisterThirdPlanButton() {
 }
 
 function clickSubmitButton() {
+  debugger;
   const saveButton = document.getElementById("saveButton");
-  waitForElementClass(saveButton, "disabled", () => {
-    // The element no longer has the specified class
-    // Perform the desired actions here
+  if (saveButton.classList.contains("disabled")) {
+    waitForElementClass(saveButton, "disabled", () => {
+      saveButton.click();
+    });
+  } else {
     saveButton.click();
-  });
+  }
 }
 
 function clickAddAllButton(index) {
-  onElementExists(
-    "#planAccordion > div.plan-title.overflow-table.plan-title-p1.expanded > div > button",
-    () => {
-      const addAllButtons = document.getElementsByClassName("add-all-button");
-      const addAllButton = addAllButtons[index];
-      addAllButton.click();
+  function clickButton() {
+    const addAllButtons = document.getElementsByClassName("add-all-button");
+    const addAllButton = addAllButtons[index];
+    addAllButton.click();
+  }
+  if (document.getElementsByClassName("add-all-button").length - 1 >= index) {
+    debugger;
+    clickButton();
+    return;
+  }
+
+  const observer = new MutationObserver((mutationsList, observer) => {
+    if (document.getElementsByClassName("add-all-button").length - 1 >= index) {
+      observer.disconnect();
+
+      clickButton();
     }
-  );
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
 }
 
 function clickPlansButton() {
