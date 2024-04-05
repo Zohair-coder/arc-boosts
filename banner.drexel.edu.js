@@ -310,12 +310,12 @@ function addAutofillButton() {
   });
 }
 
-function fill_out_one_day_timesheet() {
-  const time_in = document.querySelector("#timein_input_id");
-  const time_out = document.querySelector("#timeout_input_id");
+function fill_out_sunday_timesheet() {
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
 
-  time_in.value = "2:00";
-  time_out.value = "06:30";
+  time_in.value = "02:00";
+  time_out.value = "06:00";
 
   const time_in_ampm = document.getElementsByName("TimeInAm")[0];
   const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
@@ -329,16 +329,153 @@ function fill_out_one_day_timesheet() {
   }
 
   save_button.click();
+}
 
-  const next_day_button = get_input("Next Day");
+function fill_out_monday_timesheet() {
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
 
-  if (next_day_button === undefined) {
-    const time_sheet_button = get_input("Time Sheet");
-    time_sheet_button.click();
+  time_in.value = "02:00";
+  time_out.value = "06:00";
+
+  const time_in_ampm = document.getElementsByName("TimeInAm")[0];
+  const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
+
+  time_in_ampm.value = "PM";
+  time_out_ampm.value = "PM";
+
+  const save_button = get_input("Save");
+  if (save_button === null) {
     return;
   }
 
-  next_day_button.click();
+  save_button.click();
+}
+
+function fill_out_tuesday_timesheet() {
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
+
+  time_in.value = "06:30";
+  time_out.value = "08:30";
+
+  const time_in_ampm = document.getElementsByName("TimeInAm")[0];
+  const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
+
+  time_in_ampm.value = "PM";
+  time_out_ampm.value = "PM";
+
+  const save_button = get_input("Save");
+  if (save_button === null) {
+    return;
+  }
+
+  save_button.click();
+}
+
+function fill_out_wednesday_timesheet() {
+
+  // first time
+
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
+
+  time_in.value = "03:00";
+  time_out.value = "04:30";
+
+  const time_in_ampm = document.getElementsByName("TimeInAm")[0];
+  const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
+
+  time_in_ampm.value = "PM";
+  time_out_ampm.value = "PM";
+
+  // second time
+
+  const time_in_2 = document.getElementsByName("TimeIn")[1];
+  const time_out_2 = document.getElementsByName("TS_TimeOut")[1];
+
+  time_in_2.value = "06:00";
+  time_out_2.value = "08:00";
+
+  const time_in_ampm_2 = document.getElementsByName("TimeInAm")[1];
+  const time_out_ampm_2 = document.getElementsByName("TimeOutAm")[1];
+
+  time_in_ampm_2.value = "PM";
+  time_out_ampm_2.value = "PM";
+
+  // save
+
+  const save_button = get_input("Save");
+  if (save_button === null) {
+    return;
+  }
+
+  save_button.click();
+}
+
+function fill_out_thursday_timesheet() {
+
+  // first time
+
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
+
+  time_in.value = "12:00";
+  time_out.value = "01:30";
+
+  const time_in_ampm = document.getElementsByName("TimeInAm")[0];
+  const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
+
+  time_in_ampm.value = "PM";
+  time_out_ampm.value = "PM";
+
+  // second time
+
+  const time_in_2 = document.getElementsByName("TimeIn")[1];
+  const time_out_2 = document.getElementsByName("TS_TimeOut")[1];
+
+  time_in_2.value = "04:30";
+  time_out_2.value = "06:00";
+
+  const time_in_ampm_2 = document.getElementsByName("TimeInAm")[1];
+  const time_out_ampm_2 = document.getElementsByName("TimeOutAm")[1];
+
+  time_in_ampm_2.value = "PM";
+  time_out_ampm_2.value = "PM";
+
+  // save
+  
+  const save_button = get_input("Save");
+  if (save_button === null) {
+    return;
+  }
+
+  save_button.click();
+}
+
+function fill_out_friday_timesheet() {
+  const time_in = document.getElementsByName("TimeIn")[0];
+  const time_out = document.getElementsByName("TS_TimeOut")[0];
+
+  time_in.value = "2:00";
+  time_out.value = "05:30";
+
+  const time_in_ampm = document.getElementsByName("TimeInAm")[0];
+  const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
+
+  time_in_ampm.value = "PM";
+  time_out_ampm.value = "PM";
+
+  const save_button = get_input("Save");
+  if (save_button === null) {
+    return;
+  }
+
+  save_button.click();
+}
+
+function fill_out_saturday_timesheet() {
+  return;
 }
 
 function get_input(val) {
@@ -358,16 +495,47 @@ function get_input(val) {
 }
 
 function fill_out_entire_timesheet() {
-  let next_button = get_input("Next Day");
   const current_date = document.querySelector(
     "body > div.pagebodydiv > form > table:nth-child(9) > tbody > tr:nth-child(1) > td.dedefault"
   ).textContent;
   const date = new Date(current_date);
   let utc_day = date.getUTCDay();
 
-  if (utc_day >= 1 && utc_day <= 4) {
-    fill_out_one_day_timesheet();
-  } else {
-    next_button.click();
+  if (utc_day === 0) {
+    fill_out_sunday_timesheet();
   }
+  
+  if (utc_day === 1) {
+    fill_out_monday_timesheet();
+  }
+  
+  if (utc_day === 2) {
+    fill_out_tuesday_timesheet();
+  }
+  
+  if (utc_day === 3) {
+    fill_out_wednesday_timesheet();
+  }
+  
+  if (utc_day === 4) {
+    fill_out_thursday_timesheet();
+  }
+  
+  if (utc_day === 5) {
+    fill_out_friday_timesheet();
+  }
+  
+  if (utc_day === 6) {
+    fill_out_saturday_timesheet();
+  }
+
+  const next_day_button = get_input("Next Day");
+
+  if (next_day_button === undefined) {
+    const time_sheet_button = get_input("Time Sheet");
+    time_sheet_button.click();
+    return;
+  }
+
+  next_day_button.click();
 }
