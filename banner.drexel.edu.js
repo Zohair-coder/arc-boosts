@@ -9,7 +9,7 @@ window.onload = () => {
     addCancelButton();
   } else if (
     url.includes(
-      "https://banner.drexel.edu/registration/ssb/classRegistration/classRegistration"
+      "classRegistration"
     )
   ) {
     addRegisterThirdPlanButton();
@@ -21,7 +21,7 @@ window.onload = () => {
 function addTimeSelector() {
   const div = document.createElement("div");
   div.style = "margin-top: 15px";
-
+  
   const label = createLabel();
   const input = createInput();
   const errorMsg = createErrorMsg();
@@ -63,7 +63,7 @@ function createErrorMsg() {
 
 function createInput() {
   let input = document.createElement("input");
-  input.setAttribute("type", "text");
+  input.setAttribute("type", "time");
   input.setAttribute("id", "time");
   input.setAttribute("name", "time");
   input.setAttribute("placeholder", "HH:MM");
@@ -314,8 +314,8 @@ function fill_out_one_day_timesheet() {
   const time_in = document.querySelector("#timein_input_id");
   const time_out = document.querySelector("#timeout_input_id");
 
-  time_in.value = "06:00";
-  time_out.value = "10:00";
+  time_in.value = "2:00";
+  time_out.value = "06:30";
 
   const time_in_ampm = document.getElementsByName("TimeInAm")[0];
   const time_out_ampm = document.getElementsByName("TimeOutAm")[0];
@@ -364,7 +364,8 @@ function fill_out_entire_timesheet() {
   ).textContent;
   const date = new Date(current_date);
   let utc_day = date.getUTCDay();
-  if (utc_day >= 1 && utc_day <= 5) {
+
+  if (utc_day >= 1 && utc_day <= 4) {
     fill_out_one_day_timesheet();
   } else {
     next_button.click();
